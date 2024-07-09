@@ -1,13 +1,13 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface SidebarItemProps {
-  icon: LucideIcon;
-  label: string;
-  isActive?: boolean;
-  onClick: () => void;
+  icon: LucideIcon
+  label: string
+  isActive?: boolean
+  onClick: () => void
 }
 
 export const SidebarItem = ({
@@ -20,5 +20,5 @@ export const SidebarItem = ({
     <Button>
       <Icon />
     </Button>
-  );
-};
+  )
+}

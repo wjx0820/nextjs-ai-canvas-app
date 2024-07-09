@@ -1,36 +1,36 @@
-"use client";
+"use client"
 
-import { Logo } from "@/features/editor/components/logo";
-
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import {
   ChevronDown,
   Download,
   MousePointerClick,
   Redo2,
   Undo2,
-} from "lucide-react";
-import { CiFileOn } from "react-icons/ci";
-import { Separator } from "@/components/ui/separator";
-import { Hint } from "@/components/ui/hint";
-import { BsCloudCheck } from "react-icons/bs";
+} from "lucide-react"
+import { BsCloudCheck } from "react-icons/bs"
+import { CiFileOn } from "react-icons/ci"
+
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Hint } from "@/components/ui/hint"
+import { Separator } from "@/components/ui/separator"
+import { Logo } from "@/features/editor/components/logo"
 
 export const Navbar = () => {
   return (
-    <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
+    <nav className="flex h-[68px] w-full items-center gap-x-8 border-b p-4 lg:pl-[34px]">
       <Logo />
-      <div className="w-full flex items-center gap-x-1 h-full">
+      <div className="flex h-full w-full items-center gap-x-1">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button size="sm" variant="ghost">
               File
-              <ChevronDown className="size-4 ml-2" />
+              <ChevronDown className="ml-2 size-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-60">
@@ -74,7 +74,7 @@ export const Navbar = () => {
             <DropdownMenuTrigger asChild>
               <Button size="sm" variant="ghost">
                 Export
-                <Download className="size-4 ml-4" />
+                <Download className="ml-4 size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
@@ -131,5 +131,5 @@ export const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}

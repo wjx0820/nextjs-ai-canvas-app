@@ -1,7 +1,7 @@
-import { Editor } from "@/features/editor/components/editor";
+import { Editor } from "@/features/editor/components/editor"
 
 const EditorProjectIdPage = () => {
-  return <Editor />;
-};
+  return <Editor />
+}
 
-export default EditorProjectIdPage;
+export default EditorProjectIdPage

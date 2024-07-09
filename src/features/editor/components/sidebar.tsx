@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
 export const Sidebar = () => {
   return (
-    <aside className="bg-white flex flex-col w-[100px] h-full border-r overflow-y-auto">
+    <aside className="flex h-full w-[100px] flex-col overflow-y-auto border-r bg-white">
       S
     </aside>
-  );
-};
+  )
+}

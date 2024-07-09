@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
 export const Toolbar = () => {
   return (
-    <div className="shrink-0 h-[56px] border-b bg-white w-full flex items-center overflow-x-auto z-[49] p-2 gap-x-2">
+    <div className="z-[49] flex h-[56px] w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
       Toolbar
     </div>
-  );
-};
+  )
+}
