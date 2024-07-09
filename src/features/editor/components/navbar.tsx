@@ -20,8 +20,15 @@ import {
 import { Hint } from "@/components/ui/hint"
 import { Separator } from "@/components/ui/separator"
 import { Logo } from "@/features/editor/components/logo"
+import { ActiveTool } from "@/features/editor/types"
+import { cn } from "@/lib/utils"
 
-export const Navbar = () => {
+interface NavbarProps {
+  activeTool: ActiveTool
+  onChangeActiveTool: (tool: ActiveTool) => void
+}
+
+export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
   return (
     <nav className="flex h-[68px] w-full items-center gap-x-8 border-b p-4 lg:pl-[34px]">
       <Logo />
@@ -50,7 +57,12 @@ export const Navbar = () => {
         </DropdownMenu>
         <Separator orientation="vertical" className="mx-2" />
         <Hint label="Select" side="bottom" sideOffset={10}>
-          <Button variant="ghost" size="icon" onClick={() => {}} className="">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onChangeActiveTool("select")}
+            className={cn(activeTool === "select" && "bg-gray-100")}
+          >
             <MousePointerClick className="size-4" />
           </Button>
         </Hint>
