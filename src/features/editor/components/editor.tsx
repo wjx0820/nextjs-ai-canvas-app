@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 import { fabric } from "fabric"
 
+import { FillColorSidebar } from "@/features/editor/components/fill-color-sidebar"
 import { Navbar } from "@/features/editor/components/navbar"
 import { ShapeSidebar } from "@/features/editor/components/shape-sidebar"
 import { Sidebar } from "@/features/editor/components/sidebar"
@@ -66,8 +67,18 @@ export const Editor = () => {
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
+        <FillColorSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
         <main className="relative flex flex-1 flex-col overflow-auto bg-muted">
-          <Toolbar />
+          <Toolbar
+            editor={editor}
+            activeTool={activeTool}
+            onChangeActiveTool={onChangeActiveTool}
+            key={JSON.stringify(editor?.canvas.getActiveObject())}
+          />
           <div className="h-full flex-1 bg-muted" ref={containerRef}>
             <canvas ref={canvasRef} />
           </div>
