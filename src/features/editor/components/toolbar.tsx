@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { BsBorderWidth } from "react-icons/bs"
 
 import { Button } from "@/components/ui/button"
 import { Hint } from "@/components/ui/hint"
@@ -56,6 +56,18 @@ export const Toolbar = ({
               className="size-4 rounded-sm border-2 bg-white"
               style={{ borderColor: strokeColor }}
             />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Stroke width" side="bottom" sideOffset={5}>
+          <Button
+            size="icon"
+            variant="ghost"
+            className={cn(activeTool === "stroke-width" && "bg-gray-100")}
+            onClick={() => onChangeActiveTool("stroke-width")}
+          >
+            <BsBorderWidth className="size-4" />
           </Button>
         </Hint>
       </div>
