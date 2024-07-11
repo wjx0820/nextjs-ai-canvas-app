@@ -1,5 +1,6 @@
 "use client"
 
+import { ArrowDown, ArrowUp } from "lucide-react"
 import { BsBorderWidth } from "react-icons/bs"
 
 import { Button } from "@/components/ui/button"
@@ -68,6 +69,28 @@ export const Toolbar = ({
             onClick={() => onChangeActiveTool("stroke-width")}
           >
             <BsBorderWidth className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Bring forward" side="bottom" sideOffset={5}>
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => editor?.bringForward()}
+          >
+            <ArrowUp className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Send backwards" side="bottom" sideOffset={5}>
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => editor?.sendBackwards()}
+          >
+            <ArrowDown className="size-4" />
           </Button>
         </Hint>
       </div>
