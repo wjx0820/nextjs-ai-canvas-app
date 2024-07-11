@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 import { fabric } from "fabric"
 
+import { TextSidebar } from "@/features/editor/components//text-sidebar"
 import { FillColorSidebar } from "@/features/editor/components/fill-color-sidebar"
 import { Navbar } from "@/features/editor/components/navbar"
 import { OpacitySidebar } from "@/features/editor/components/opacity-sidebar"
@@ -95,6 +96,11 @@ export const Editor = () => {
           onChangeActiveTool={onChangeActiveTool}
         />
         <OpacitySidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <TextSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
