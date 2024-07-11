@@ -115,6 +115,7 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
+  changeOpacity: (value: number) => void
   bringForward: () => void
   sendBackwards: () => void
   changeFillColor: (value: string) => void
@@ -132,5 +133,6 @@ export interface Editor {
   getActiveStrokeColor: () => string
   getActiveStrokeWidth: () => number
   getActiveStrokeDashArray: () => number[]
+  getActiveOpacity: () => number
   selectedObjects: fabric.Object[]
 }

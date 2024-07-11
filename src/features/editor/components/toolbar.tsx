@@ -2,6 +2,7 @@
 
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { BsBorderWidth } from "react-icons/bs"
+import { RxTransparencyGrid } from "react-icons/rx"
 
 import { Button } from "@/components/ui/button"
 import { Hint } from "@/components/ui/hint"
@@ -91,6 +92,18 @@ export const Toolbar = ({
             onClick={() => editor?.sendBackwards()}
           >
             <ArrowDown className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Opacity" side="bottom" sideOffset={5}>
+          <Button
+            size="icon"
+            variant="ghost"
+            className={cn(activeTool === "opacity" && "bg-gray-100")}
+            onClick={() => onChangeActiveTool("opacity")}
+          >
+            <RxTransparencyGrid className="size-4" />
           </Button>
         </Hint>
       </div>
