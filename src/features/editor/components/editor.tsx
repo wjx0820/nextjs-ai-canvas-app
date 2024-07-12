@@ -6,6 +6,7 @@ import { fabric } from "fabric"
 
 import { FillColorSidebar } from "@/features/editor/components/fill-color-sidebar"
 import { FontSidebar } from "@/features/editor/components/font-sidebar"
+import { ImageSidebar } from "@/features/editor/components/image-sidebar"
 import { Navbar } from "@/features/editor/components/navbar"
 import { OpacitySidebar } from "@/features/editor/components/opacity-sidebar"
 import { ShapeSidebar } from "@/features/editor/components/shape-sidebar"
@@ -107,6 +108,11 @@ export const Editor = () => {
           onChangeActiveTool={onChangeActiveTool}
         />
         <FontSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <ImageSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
