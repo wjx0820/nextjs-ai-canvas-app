@@ -8,6 +8,7 @@ import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-clos
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header"
 import { useGetImages } from "@/features/editor/images/api/use-get-images"
 import { ActiveTool, Editor } from "@/features/editor/types"
+import { UploadButton } from "@/lib/uploadthing"
 import { cn } from "@/lib/utils"
 
 interface ImageSidebarProps {
@@ -38,6 +39,21 @@ export const ImageSidebar = ({
         title="Images"
         description="Add images to your canvas"
       />
+      <div className="border-b p-4">
+        <UploadButton
+          appearance={{
+            button: "w-full text-sm font-medium",
+            allowedContent: "hidden",
+          }}
+          content={{
+            button: "Upload Image",
+          }}
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            editor?.addImage(res[0].url)
+          }}
+        />
+      </div>
       {isLoading && (
         <div className="flex flex-1 items-center justify-center">
           <Loader className="size-4 animate-spin text-muted-foreground" />
