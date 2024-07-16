@@ -9,6 +9,7 @@ import {
   ArrowDown,
   ArrowUp,
   ChevronDown,
+  SquareSplitHorizontal,
   Trash,
 } from "lucide-react"
 import { BsBorderWidth } from "react-icons/bs"
@@ -331,6 +332,20 @@ export const Toolbar = ({
               onClick={() => onChangeActiveTool("filter")}
             >
               <TbColorFilter className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isImage && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Remove background" side="bottom" sideOffset={5}>
+            <Button
+              size="icon"
+              variant="ghost"
+              className={cn(activeTool === "remove-bg" && "bg-gray-100")}
+              onClick={() => onChangeActiveTool("remove-bg")}
+            >
+              <SquareSplitHorizontal className="size-4" />
             </Button>
           </Hint>
         </div>
