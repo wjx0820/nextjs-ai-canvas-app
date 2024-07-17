@@ -196,6 +196,11 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
+  savePng: () => void
+  saveJpg: () => void
+  saveSvg: () => void
+  saveJson: () => void
+  loadJson: (json: string) => void
   onUndo: () => void
   onRedo: () => void
   canUndo: () => boolean
@@ -203,7 +208,7 @@ export interface Editor {
   zoomIn: () => void
   zoomOut: () => void
   autoZoom: () => void
-  getWorkSpace: () => fabric.Object | undefined
+  getWorkspace: () => fabric.Object | undefined
   changeSize: (value: { width: number; height: number }) => void
   changeBackground: (value: string) => void
   enableDrawingMode: () => void

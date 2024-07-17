@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { BsCloudCheck } from "react-icons/bs"
 import { CiFileOn } from "react-icons/ci"
+import { useFilePicker } from "use-file-picker"
 
 import { Hint } from "@/components/hint"
 import { Button } from "@/components/ui/button"
@@ -34,6 +35,20 @@ export const Navbar = ({
   activeTool,
   onChangeActiveTool,
 }: NavbarProps) => {
+  const { openFilePicker } = useFilePicker({
+    accept: ".json",
+    onFilesSuccessfullySelected: ({ plainFiles }: any) => {
+      if (plainFiles && plainFiles.length > 0) {
+        const file = plainFiles[0]
+        const reader = new FileReader()
+        reader.readAsText(file, "UTF-8")
+        reader.onload = () => {
+          editor?.loadJson(reader.result as string)
+        }
+      }
+    },
+  })
+
   return (
     <nav className="flex h-[68px] w-full items-center gap-x-8 border-b p-4 lg:pl-[34px]">
       <Logo />
@@ -47,7 +62,7 @@ export const Navbar = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-60">
             <DropdownMenuItem
-              onClick={() => {}}
+              onClick={() => openFilePicker()}
               className="flex items-center gap-x-2"
             >
               <CiFileOn className="size-8" />
@@ -110,7 +125,7 @@ export const Navbar = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
               <DropdownMenuItem
-                onClick={() => {}}
+                onClick={() => editor?.saveJson()}
                 className="flex items-center gap-x-2"
               >
                 <CiFileOn className="size-8" />
@@ -122,7 +137,7 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => {}}
+                onClick={() => editor?.savePng()}
                 className="flex items-center gap-x-2"
               >
                 <CiFileOn className="size-8" />
@@ -134,7 +149,7 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => {}}
+                onClick={() => editor?.saveJpg()}
                 className="flex items-center gap-x-2"
               >
                 <CiFileOn className="size-8" />
@@ -146,7 +161,7 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => {}}
+                onClick={() => editor?.saveSvg()}
                 className="flex items-center gap-x-2"
               >
                 <CiFileOn className="size-8" />

@@ -7,6 +7,7 @@ import { useCanvasEvents } from "@/features/editor/hooks/use-canvas-events"
 import { useClipboard } from "@/features/editor/hooks/use-clipboard"
 import { useHistory } from "@/features/editor/hooks/use-history"
 import { useHotkeys } from "@/features/editor/hooks/use-hotkeys"
+import { useWindowEvents } from "@/features/editor/hooks/use-window-events"
 import {
   BuildEditorProps,
   CIRCLE_OPTIONS,
@@ -25,7 +26,12 @@ import {
   TEXT_OPTIONS,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types"
-import { createFilter, isTextType } from "@/features/editor/utils"
+import {
+  createFilter,
+  downloadFile,
+  isTextType,
+  transformText,
+} from "@/features/editor/utils"
 
 const buildEditor = ({
   save,
@@ -49,12 +55,73 @@ const buildEditor = ({
   setFontFamily,
   selectedObjects,
 }: BuildEditorProps): Editor => {
-  const getWorkSpace = () => {
+  const generateSaveOptions = () => {
+    const { width, height, left, top } = getWorkspace() as fabric.Rect
+
+    return {
+      name: "Image",
+      quality: 1,
+      width,
+      height,
+      left,
+      top,
+    }
+  }
+
+  const savePng = () => {
+    const options = generateSaveOptions()
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
+    const dataUrl = canvas.toDataURL(options)
+
+    downloadFile(dataUrl, "png")
+    autoZoom()
+  }
+
+  const saveSvg = () => {
+    const options = generateSaveOptions()
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
+    const dataUrl = canvas.toDataURL(options)
+
+    downloadFile(dataUrl, "svg")
+    autoZoom()
+  }
+
+  const saveJpg = () => {
+    const options = generateSaveOptions()
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
+    const dataUrl = canvas.toDataURL(options)
+
+    downloadFile(dataUrl, "jpg")
+    autoZoom()
+  }
+
+  const saveJson = async () => {
+    const dataUrl = canvas.toJSON(JSON_KEYS)
+
+    await transformText(dataUrl.objects)
+    const fileString = `data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify(dataUrl, null, "\t"),
+    )}`
+    downloadFile(fileString, "json")
+  }
+
+  const loadJson = (json: string) => {
+    const data = JSON.parse(json)
+
+    canvas.loadFromJSON(data, () => {
+      autoZoom()
+    })
+  }
+
+  const getWorkspace = () => {
     return canvas.getObjects().find((object) => object.name === "clip")
   }
 
   const center = (object: fabric.Object) => {
-    const workspace = getWorkSpace()
+    const workspace = getWorkspace()
     const center = workspace?.getCenterPoint()
 
     if (!center) return
@@ -70,8 +137,13 @@ const buildEditor = ({
   }
 
   return {
+    savePng,
+    saveJpg,
+    saveSvg,
+    saveJson,
+    loadJson,
     autoZoom,
-    getWorkSpace,
+    getWorkspace,
     canUndo,
     canRedo,
     zoomIn: () => {
@@ -93,13 +165,13 @@ const buildEditor = ({
       )
     },
     changeSize: (value: { width: number; height: number }) => {
-      const workspace = getWorkSpace()
+      const workspace = getWorkspace()
       workspace?.set(value)
       autoZoom()
       save()
     },
     changeBackground: (value: string) => {
-      const workspace = getWorkSpace()
+      const workspace = getWorkspace()
       workspace?.set({ fill: value })
       canvas.renderAll()
       save()
@@ -136,7 +208,7 @@ const buildEditor = ({
       fabric.Image.fromURL(
         value,
         (image) => {
-          const workspace = getWorkSpace()
+          const workspace = getWorkspace()
 
           image.scaleToWidth(workspace?.width || 0)
           image.scaleToHeight(workspace?.height || 0)
@@ -346,7 +418,7 @@ const buildEditor = ({
       canvas.renderAll()
 
       // canvas is always the bottom layer
-      const workspace = getWorkSpace()
+      const workspace = getWorkspace()
       workspace?.sendToBack()
     },
     sendBackwards: () => {
@@ -356,7 +428,7 @@ const buildEditor = ({
       canvas.renderAll()
 
       // canvas is always the bottom layer
-      const workspace = getWorkSpace()
+      const workspace = getWorkspace()
       workspace?.sendToBack()
     },
     changeFontFamily: (value: string) => {
@@ -540,6 +612,8 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
   const [strokeWidth, setStrokeWidth] = useState(STROKE_WIDTH)
   const [strokeDashArray, setStrokeDashArray] =
     useState<number[]>(STROKE_DASH_ARRAY)
+
+  useWindowEvents()
 
   const { save, canRedo, canUndo, undo, redo, canvasHistory, setHistoryIndex } =
     useHistory({ canvas })
