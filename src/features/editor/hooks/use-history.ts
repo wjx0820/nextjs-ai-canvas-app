@@ -26,9 +26,7 @@ export const useHistory = ({ canvas }: UseHistoryProps) => {
       if (!canvas) return
 
       const currentState = canvas.toJSON(JSON_KEYS)
-      console.log("currentState", currentState)
       const json = JSON.stringify(currentState)
-      console.log("json", json)
 
       if (!skip && !skipSave.current) {
         canvasHistory.current.push(json)
@@ -61,7 +59,7 @@ export const useHistory = ({ canvas }: UseHistoryProps) => {
       skipSave.current = true
       canvas?.clear().renderAll()
 
-      const nextIndex = historyIndex - 1
+      const nextIndex = historyIndex + 1
       const nextState = JSON.parse(canvasHistory.current[nextIndex])
 
       canvas?.loadFromJSON(nextState, () => {
