@@ -9,6 +9,7 @@ import { DrawSidebar } from "@/features/editor/components/draw-sidebar"
 import { FillColorSidebar } from "@/features/editor/components/fill-color-sidebar"
 import { FilterSidebar } from "@/features/editor/components/filter-sidebar"
 import { FontSidebar } from "@/features/editor/components/font-sidebar"
+import { Footer } from "@/features/editor/components/footer"
 import { ImageSidebar } from "@/features/editor/components/image-sidebar"
 import { Navbar } from "@/features/editor/components/navbar"
 import { OpacitySidebar } from "@/features/editor/components/opacity-sidebar"
@@ -157,6 +158,7 @@ export const Editor = () => {
           <div className="h-full flex-1 bg-muted" ref={containerRef}>
             <canvas ref={canvasRef} />
           </div>
+          <Footer editor={editor} />
         </main>
       </div>
     </div>

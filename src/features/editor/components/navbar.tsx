@@ -10,6 +10,7 @@ import {
 import { BsCloudCheck } from "react-icons/bs"
 import { CiFileOn } from "react-icons/ci"
 
+import { Hint } from "@/components/hint"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -17,7 +18,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Hint } from "@/components/ui/hint"
 import { Separator } from "@/components/ui/separator"
 import { Logo } from "@/features/editor/components/logo"
 import { ActiveTool } from "@/features/editor/types"

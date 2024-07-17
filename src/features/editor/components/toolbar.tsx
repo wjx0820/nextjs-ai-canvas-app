@@ -18,8 +18,8 @@ import { FaBold, FaItalic, FaStrikethrough, FaUnderline } from "react-icons/fa"
 import { RxTransparencyGrid } from "react-icons/rx"
 import { TbColorFilter } from "react-icons/tb"
 
+import { Hint } from "@/components/hint"
 import { Button } from "@/components/ui/button"
-import { Hint } from "@/components/ui/hint"
 import { FontSizeInput } from "@/features/editor/components/font-size-input"
 import {
   ActiveTool,
