@@ -1,63 +1,83 @@
-"use client"
+"use client";
 
+import { CiFileOn } from "react-icons/ci";
+import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
+import { useFilePicker } from "use-file-picker";
+import { useMutationState } from "@tanstack/react-query";
 import {
   ChevronDown,
   Download,
+  Loader,
   MousePointerClick,
   Redo2,
   Undo2,
-} from "lucide-react"
-import { BsCloudCheck } from "react-icons/bs"
-import { CiFileOn } from "react-icons/ci"
-import { useFilePicker } from "use-file-picker"
+} from "lucide-react";
 
-import { Hint } from "@/components/hint"
-import { Button } from "@/components/ui/button"
+import { UserButton } from "@/features/auth/components/user-button";
+
+import { ActiveTool, Editor } from "@/features/editor/types";
+import { Logo } from "@/features/editor/components/logo";
+
+import { cn } from "@/lib/utils";
+import { Hint } from "@/components/hint";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Separator } from "@/components/ui/separator"
-import { Logo } from "@/features/editor/components/logo"
-import { ActiveTool, Editor } from "@/features/editor/types"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/dropdown-menu";
 
 interface NavbarProps {
-  editor: Editor | undefined
-  activeTool: ActiveTool
-  onChangeActiveTool: (tool: ActiveTool) => void
+  id: string;
+  editor: Editor | undefined;
+  activeTool: ActiveTool;
+  onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
 export const Navbar = ({
+  id,
   editor,
   activeTool,
   onChangeActiveTool,
 }: NavbarProps) => {
+  const data = useMutationState({
+    filters: {
+      mutationKey: ["project", { id }],
+      exact: true,
+    },
+    select: (mutation) => mutation.state.status,
+  });
+
+  const currentStatus = data[data.length - 1];
+
+  const isError = currentStatus === "error";
+  const isPending = currentStatus === "pending";
+
   const { openFilePicker } = useFilePicker({
     accept: ".json",
     onFilesSuccessfullySelected: ({ plainFiles }: any) => {
       if (plainFiles && plainFiles.length > 0) {
-        const file = plainFiles[0]
-        const reader = new FileReader()
-        reader.readAsText(file, "UTF-8")
+        const file = plainFiles[0];
+        const reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
         reader.onload = () => {
-          editor?.loadJson(reader.result as string)
-        }
+          editor?.loadJson(reader.result as string);
+        };
       }
     },
-  })
+  });
 
   return (
-    <nav className="flex h-[68px] w-full items-center gap-x-8 border-b p-4 lg:pl-[34px]">
+    <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
       <Logo />
-      <div className="flex h-full w-full items-center gap-x-1">
+      <div className="w-full flex items-center gap-x-1 h-full">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button size="sm" variant="ghost">
               File
-              <ChevronDown className="ml-2 size-4" />
+              <ChevronDown className="size-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-60">
@@ -91,9 +111,7 @@ export const Navbar = ({
             disabled={!editor?.canUndo()}
             variant="ghost"
             size="icon"
-            onClick={() => {
-              editor?.onUndo()
-            }}
+            onClick={() => editor?.onUndo()}
           >
             <Undo2 className="size-4" />
           </Button>
@@ -103,30 +121,42 @@ export const Navbar = ({
             disabled={!editor?.canRedo()}
             variant="ghost"
             size="icon"
-            onClick={() => {
-              editor?.onRedo()
-            }}
+            onClick={() => editor?.onRedo()}
           >
             <Redo2 className="size-4" />
           </Button>
         </Hint>
         <Separator orientation="vertical" className="mx-2" />
-        <div className="flex items-center gap-x-2">
-          <BsCloudCheck className="size-[20px] text-muted-foreground" />
-          <div className="text-xs text-muted-foreground">Saved</div>
-        </div>
+        {isPending && (
+          <div className="flex items-center gap-x-2">
+            <Loader className="size-4 animate-spin text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">Saving...</div>
+          </div>
+        )}
+        {!isPending && isError && (
+          <div className="flex items-center gap-x-2">
+            <BsCloudSlash className="size-[20px] text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">Failed to save</div>
+          </div>
+        )}
+        {!isPending && !isError && (
+          <div className="flex items-center gap-x-2">
+            <BsCloudCheck className="size-[20px] text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">Saved</div>
+          </div>
+        )}
         <div className="ml-auto flex items-center gap-x-4">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button size="sm" variant="ghost">
                 Export
-                <Download className="ml-4 size-4" />
+                <Download className="size-4 ml-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
               <DropdownMenuItem
-                onClick={() => editor?.saveJson()}
                 className="flex items-center gap-x-2"
+                onClick={() => editor?.saveJson()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -137,8 +167,8 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => editor?.savePng()}
                 className="flex items-center gap-x-2"
+                onClick={() => editor?.savePng()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -149,8 +179,8 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => editor?.saveJpg()}
                 className="flex items-center gap-x-2"
+                onClick={() => editor?.saveJpg()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -161,8 +191,8 @@ export const Navbar = ({
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => editor?.saveSvg()}
                 className="flex items-center gap-x-2"
+                onClick={() => editor?.saveSvg()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -174,8 +204,9 @@ export const Navbar = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <UserButton />
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};

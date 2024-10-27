@@ -1,12 +1,12 @@
 // In Next.js, this file would be called: app/providers.jsx
-"use client"
+'use client'
 
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query"
+} from '@tanstack/react-query'
 
 function makeQueryClient() {
   return new QueryClient({
@@ -37,8 +37,8 @@ function getQueryClient() {
 }
 
 interface QueryProviderProps {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export function QueryProvider({ children }: QueryProviderProps) {
   // NOTE: Avoid useState when initializing the query client if you don't
@@ -49,5 +49,6 @@ export function QueryProvider({ children }: QueryProviderProps) {
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  )
-}
+  );
+};
+

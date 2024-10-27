@@ -1,27 +1,29 @@
-"use client"
+"use client";
 
-import {
-  ImageIcon,
+import { 
   LayoutTemplate,
+  ImageIcon,
   Pencil,
-  Presentation,
   Settings,
   Shapes,
   Sparkles,
   Type,
-} from "lucide-react"
+} from "lucide-react";
 
-import { SidebarItem } from "@/features/editor/components/sidebar-item"
-import { ActiveTool } from "@/features/editor/types"
+import { ActiveTool } from "@/features/editor/types";
+import { SidebarItem } from "@/features/editor/components/sidebar-item";
 
 interface SidebarProps {
-  activeTool: ActiveTool
-  onChangeActiveTool: (tool: ActiveTool) => void
-}
+  activeTool: ActiveTool;
+  onChangeActiveTool: (tool: ActiveTool) => void;
+};
 
-export const Sidebar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
+export const Sidebar = ({
+  activeTool,
+  onChangeActiveTool,
+}: SidebarProps) => {
   return (
-    <aside className="flex h-full w-[100px] flex-col overflow-y-auto border-r bg-white">
+    <aside className="bg-white flex flex-col w-[100px] h-full border-r overflow-y-auto">
       <ul className="flex flex-col">
         <SidebarItem
           icon={LayoutTemplate}
@@ -67,5 +69,5 @@ export const Sidebar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
         />
       </ul>
     </aside>
-  )
-}
+  );
+};

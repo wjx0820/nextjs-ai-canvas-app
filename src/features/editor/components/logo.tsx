@@ -1,17 +1,17 @@
-import Image from "next/image"
-import Link from "next/link"
+import Link from "next/link";
+import Image from "next/image";
 
 export const Logo = () => {
   return (
     <Link href="/">
-      <div className="relative size-8 shrink-0">
+      <div className="size-8 relative shrink-0">
         <Image
           src="/logo.svg"
-          alt="Image AI"
-          className="shrink-0 transition hover:opacity-75"
           fill
+          alt="Image AI"
+          className="shrink-0 hover:opacity-75 transition"
         />
       </div>
     </Link>
-  )
-}
+  );
+};

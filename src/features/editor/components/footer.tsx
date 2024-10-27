@@ -1,16 +1,17 @@
-import { Minimize, ZoomIn, ZoomOut } from "lucide-react"
+import { Minimize, ZoomIn, ZoomOut } from "lucide-react";
 
-import { Hint } from "@/components/hint"
-import { Button } from "@/components/ui/button"
-import { Editor } from "@/features/editor/types"
+import { Editor } from "@/features/editor/types";
+
+import { Hint } from "@/components/hint";
+import { Button } from "@/components/ui/button";
 
 interface FooterProps {
-  editor: Editor | undefined
-}
+  editor: Editor | undefined;
+};
 
 export const Footer = ({ editor }: FooterProps) => {
   return (
-    <footer className="z-[49] flex h-[52px] w-full shrink-0 flex-row-reverse items-center gap-x-1 overflow-x-auto border-t bg-white p-2 px-4">
+    <footer className="h-[52px] border-t bg-white w-full flex items-center overflow-x-auto z-[49] p-2 gap-x-1 shrink-0 px-4 flex-row-reverse">
       <Hint label="Reset" side="top" sideOffset={10}>
         <Button
           onClick={() => editor?.autoZoom()}
@@ -42,5 +43,5 @@ export const Footer = ({ editor }: FooterProps) => {
         </Button>
       </Hint>
     </footer>
-  )
-}
+  );
+};
