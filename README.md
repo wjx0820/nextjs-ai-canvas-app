@@ -1,5 +1,5 @@
 ## Info
-A graphic design SaaS platform with intuitive editor that allows users to customize templates, manipulate text and shapes, and integrate advanced drawing tools. It also leverage AI technologies to remove backgrounds, and generate images from text using software like Replicate with secure subscription & billing system using Stripe.
+A graphic design tool with intuitive editor that allows users to customize templates, manipulate text and shapes, and integrate advanced drawing tools. It also leverage AI technologies to remove backgrounds, and generate images from text using software like Replicate with secure subscription & billing system using Stripe.
 
 Try here: https://image-ai-three-nu.vercel.app
 
