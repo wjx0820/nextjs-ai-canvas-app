@@ -3,7 +3,7 @@ A graphic design tool with intuitive editor that allows users to customize templ
 
 Try here: https://image-ai-three-nu.vercel.app
 
-Email: `Test@test.com`
+Email: `test@test.com`
 Password: `11111111`
 
 ## Getting Started

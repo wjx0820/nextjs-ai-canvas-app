@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/card";
 
 export const SignInCard = () => {
-  const [email, setEmail] = useState("Test@test.com");
+  const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("11111111");
 
   const params = useSearchParams();
